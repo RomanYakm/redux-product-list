@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { ProductState } from '../types/ProductState';
 import { AddProduct } from './AddProduct';
 import Product from './Product';
+import { actions as productActions } from '../features/products';
 
 export const ProductList = () => {
   const [newGoodTitle, setNewGoodTitle] = useState('');
@@ -10,31 +12,15 @@ export const ProductList = () => {
   const [newWeight, setNewWeight] = useState('');
   const [addProduct, setAddProduct] = useState(false);
 
-  const [goods, setGoods] = useState<ProductState[]>([{
-    id: 1,
-    imageUrl: '',
-    name: 'Banana',
-    count: 4,
-    size: {
-      width: 200,
-      height: 200,
-    },
-    weight: '200g',
-    comments: [{
-      id: 3,
-      productId: 1,
-      description: 'sometext',
-    }],
-  }]);
+  const dispatch = useAppDispatch();
+  const goods = useAppSelector(state => state.products);
 
   const addGood = (goodToAdd: ProductState) => {
-    setGoods([...goods, goodToAdd]);
+    dispatch(productActions.add(goodToAdd));
   };
 
   const removeGood = (goodToRemove: ProductState) => {
-    setGoods(current => current.filter(
-      good => good !== goodToRemove,
-    ));
+    dispatch(productActions.delete(goodToRemove));
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -58,6 +44,7 @@ export const ProductList = () => {
         id: 0,
         productId: id,
         description: '',
+        date: '',
       }],
     };
 
@@ -70,6 +57,7 @@ export const ProductList = () => {
     setNewGoodTitle('');
     setNewImageUrl('');
     setNewWeight('');
+    setAddProduct(!addProduct);
   };
 
   const handleModalVisible = () => {
@@ -79,6 +67,17 @@ export const ProductList = () => {
   return (
     <section className="ProductList">
       <h2>Products:</h2>
+
+      <ul>
+        {goods && goods.map((good) => (
+          <Product
+            key={good.id}
+            good={good}
+            removeGood={removeGood}
+          />
+        ))}
+
+      </ul>
 
       <button onClick={handleModalVisible} type="button">
         Add Product
@@ -95,19 +94,9 @@ export const ProductList = () => {
         newWeight={newWeight}
         setNewWeight={setNewWeight}
         addProduct={addProduct}
+        handleModalVisible={handleModalVisible}
 
       />
-
-      <ul>
-        {goods.map((good) => (
-          <Product
-            key={good.id}
-            good={good}
-            removeGood={removeGood}
-          />
-        ))}
-
-      </ul>
     </section>
   );
 };

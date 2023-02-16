@@ -1,7 +1,8 @@
 type Comments = {
   id: number,
   productId: number,
-  description: string
+  description: string,
+  date: string
 };
 
 export type ProductState = {

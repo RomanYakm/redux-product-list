@@ -8,7 +8,8 @@ type AddProductProps = {
   setNewImageUrl: React.Dispatch<React.SetStateAction<string>>,
   newWeight: string,
   setNewWeight: React.Dispatch<React.SetStateAction<string>>,
-  addProduct: boolean
+  addProduct: boolean,
+  handleModalVisible: () => void;
 };
 
 export const AddProduct = ({
@@ -22,47 +23,67 @@ export const AddProduct = ({
   newWeight,
   setNewWeight,
   addProduct,
+  handleModalVisible,
 }: AddProductProps) => {
   const handleVisibileModal = addProduct ? 'AddProduct__visible' : 'AddProduct';
 
   return (
     <section className={handleVisibileModal}>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={newGoodTitle}
-            onChange={e => setNewGoodTitle(e.target.value)}
-          />
-        </label>
+      <div className="popup-wrapper">
 
-        <label>
-          Quantity:
-          <input
-            type="number"
-            value={newGoodCount}
-            onChange={e => setNewGoodCount(e.target.value)}
-          />
-        </label>
-        <label>
-          Image URL:
-          <input
-            type="string"
-            value={newImageUrl}
-            onChange={e => setNewImageUrl(e.target.value)}
-          />
-        </label>
-        <label>
-          Weight(g):
-          <input
-            type="number"
-            value={newWeight}
-            onChange={e => setNewWeight(e.target.value)}
-          />
-        </label>
-        <button type="submit">Add</button>
-      </form>
+        <div className="popup">
+          <button
+            className="popup-close"
+            onClick={handleModalVisible}
+            type="button"
+          >
+            x
+          </button>
+          <div className="popup-content">
+            <form onSubmit={handleSubmit} className="form">
+              <label>
+                Name:
+                <input
+                  type="text"
+                  value={newGoodTitle}
+                  onChange={e => setNewGoodTitle(e.target.value)}
+                  required
+                />
+              </label>
+
+              <label>
+                Quantity:
+                <input
+                  type="number"
+                  value={newGoodCount}
+                  onChange={e => setNewGoodCount(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Image URL:
+                <input
+                  type="string"
+                  value={newImageUrl}
+                  onChange={e => setNewImageUrl(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Weight(g):
+                <input
+                  type="number"
+                  value={newWeight}
+                  onChange={e => setNewWeight(e.target.value)}
+                  required
+                />
+              </label>
+              <button type="submit">Add</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 };
