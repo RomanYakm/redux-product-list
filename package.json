@@ -41,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@mate-academy/eslint-config-react": "^0.0.9",
+    "@mate-academy/eslint-config-react-typescript": "^1.0.11"
   }
 }
