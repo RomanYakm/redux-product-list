@@ -30,6 +30,10 @@ code {
   display: block;
 }
 
+.popup-wrapper__none {
+  display: none;
+}
+
 .popup {
   font-family: arial;
   text-align: center;
@@ -59,4 +63,13 @@ code {
   display: flex;
   align-items: flex-end;
   flex-direction: column;
+}
+
+.item {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  border: solid 2px green;
+  width: max-content;
+  margin: 0 auto;
 }

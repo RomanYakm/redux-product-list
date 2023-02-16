@@ -29,10 +29,11 @@ export const ProductList = () => {
     const count = +newGoodCount;
     const id = Math.floor(Math.random() * 100);
     const weight = `${newWeight}g`;
+    const imageUrl = newImageUrl;
 
     const product = {
       id,
-      imageUrl: '',
+      imageUrl,
       name: newGoodTitle,
       count,
       size: {
