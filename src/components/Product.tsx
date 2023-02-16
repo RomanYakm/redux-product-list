@@ -1,8 +1,31 @@
- const Product = () => {
+import { ProductState } from '../types/ProductState';
 
+type Props = {
+  removeGood: (good: ProductState) => void,
+  good: ProductState,
+};
+
+const Product = ({ removeGood, good }: Props) => {
   return (
-    <h2>Product</h2>
-  )
+    <li>
+      <button
+        onClick={() => removeGood(good)}
+        className="delete"
+        type="submit"
+      >
+        X
+
+      </button>
+
+      {good.name}
+      {' '}
+      ---
+      {good.count}
+      {' '}
+      ----
+      {good.weight}
+    </li>
+  );
 };
 
 export default Product;
