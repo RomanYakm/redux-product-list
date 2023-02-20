@@ -24,13 +24,20 @@ const Product = ({ removeGood, good }: Props) => {
 
         </button>
 
-        {good.name}
-        {' '}
-        ---
-        {good.count}
-        {' '}
-        ----
-        {good.weight}
+        <div>
+          <p>
+            Product Name:
+            {good.name}
+          </p>
+          <p>
+            Product Count:
+            {good.count}
+          </p>
+          <p>
+            Product Weight:
+            {good.weight}
+          </p>
+        </div>
         <img
           src={good.imageUrl}
           alt={good.name}

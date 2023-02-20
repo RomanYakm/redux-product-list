@@ -26,6 +26,9 @@ const productsSlice = createSlice({
       state.products = state.products
         .filter(product => product.id !== action.payload.id);
     },
+    update: (state, action: PayloadAction<ProductState>) => {
+      state.products.find(product => product.id === action.payload.id);
+    },
     set: (state, action: PayloadAction<ProductState[]>) => {
       state.products = action.payload;
     },
