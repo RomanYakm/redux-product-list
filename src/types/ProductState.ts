@@ -1,9 +1,9 @@
-type Comments = {
-  id: number,
-  productId: number,
-  description: string,
-  date: string
-};
+// type Comments = {
+//   id: number,
+//   productId: number,
+//   description: string,
+//   date: string
+// };
 
 export type ProductState = {
   id: number,
@@ -14,6 +14,5 @@ export type ProductState = {
     width: number,
     height: number,
   },
-  weight: string,
-  comments: Comments[]
+  weight: string
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ProductState } from '../types/ProductState';
 
 type Props = {
-  removeGood: (good: ProductState) => void,
+  removeGood?: (good: ProductState) => void,
   good: ProductState,
 };
 
@@ -50,7 +50,7 @@ const Product = ({ removeGood, good }: Props) => {
           </button>
           <div className="popup-content">
             <button
-              onClick={() => removeGood(good)}
+              onClick={() => removeGood?.(good)}
               type="button"
             >
               Yes, delete

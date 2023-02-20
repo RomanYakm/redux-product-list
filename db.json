@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+      "name": "Banana",
+      "count": 4,
+      "size": {
+        "width": 200,
+        "height": 200
+      },
+      "weight": "200g"
+    },
+    {
+      "id": 25,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Cherry_season_%2848216568227%29.jpg",
+      "name": "Cherry",
+      "count": 200,
+      "size": {
+        "width": 200,
+        "height": 200
+      },
+      "weight": "1500g"
+    }
+  ]
+}

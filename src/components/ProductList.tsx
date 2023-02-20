@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { ProductState } from '../types/ProductState';
 import { AddProduct } from './AddProduct';
@@ -13,14 +14,41 @@ export const ProductList = () => {
   const [addProduct, setAddProduct] = useState(false);
 
   const dispatch = useAppDispatch();
-  const goods = useAppSelector(state => state.products);
+  const { products, loading, error } = useAppSelector(state => state.products);
+
+  useEffect(() => {
+    dispatch(productActions.setLoading(true));
+    fetch('http://localhost:8080/products')
+      .then(res => res.json())
+      .then(data => {
+        dispatch(productActions.set(data));
+      })
+      .catch(() => {
+        dispatch(productActions.setError('Someting went wrong'));
+      })
+      .finally(() => {
+        dispatch(productActions.setLoading(false));
+      });
+  }, []);
 
   const addGood = (goodToAdd: ProductState) => {
     dispatch(productActions.add(goodToAdd));
+    fetch('http://localhost:8080/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(goodToAdd),
+    });
   };
 
   const removeGood = (goodToRemove: ProductState) => {
     dispatch(productActions.delete(goodToRemove));
+    const url = `http://localhost:8080/products/${goodToRemove.id}`;
+
+    fetch(url, {
+      method: 'DELETE',
+    });
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -41,12 +69,6 @@ export const ProductList = () => {
         height: 200,
       },
       weight,
-      comments: [{
-        id: 0,
-        productId: id,
-        description: '',
-        date: '',
-      }],
     };
 
     if (!product) {
@@ -65,17 +87,32 @@ export const ProductList = () => {
     setAddProduct(!addProduct);
   };
 
+  if (loading) {
+    return (
+      <h2>Loading...</h2>
+    );
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <section className="ProductList">
       <h2>Products:</h2>
 
       <ul>
-        {goods && goods.map((good) => (
-          <Product
-            key={good.id}
-            good={good}
-            removeGood={removeGood}
-          />
+        {products && products.map((good) => (
+          <>
+            <Product
+              key={good.id}
+              good={good}
+              removeGood={removeGood}
+            />
+            <Link to={`/products/${good.id}`}>
+              View Post
+            </Link>
+          </>
         ))}
 
       </ul>
@@ -98,6 +135,7 @@ export const ProductList = () => {
         handleModalVisible={handleModalVisible}
 
       />
+
     </section>
   );
 };
