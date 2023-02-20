@@ -1,3 +1,8 @@
+1. 'npm start' Start the app in dev mode. 
+2. 'json-server --watch db.json --port 8080' Start JSON Server for database. 
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
